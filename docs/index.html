@@ -1,1 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Love Quest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+  <!-- =========================================================
+       SCREEN 1 — WELCOME
+  ========================================================== -->
+  <section id="screen-welcome" class="screen welcome-screen active">
+
+    <button class="close-btn" onclick="closeCard()">×</button>
+
+    <div class="glass-card welcome-card">
+
+      <div class="heart-icon">♥</div>
+
+      <h1>Welcome</h1>
+
+      <div class="divider">
+        <span></span>
+        ♥
+        <span></span>
+      </div>
+
+      <div class="input-box">
+        <span>👤</span>
+        <input
+          type="text"
+          id="userName"
+          placeholder="Your name"
+          autocomplete="name"
+        >
+      </div>
+
+      <div class="input-box">
+        <span>✉</span>
+        <input
+          type="email"
+          id="userEmail"
+          placeholder="Your email"
+          autocomplete="email"
+        >
+      </div>
+
+      <button class="main-btn" onclick="loginUser()">
+        Login <span>→</span>
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 2 — CREATE / JOIN
+  ========================================================== -->
+  <section id="screen-choice" class="screen choice-screen">
+
+    <div class="glass-card choice-card">
+
+      <div class="small-label">WELCOME, <span id="displayName"></span></div>
+
+      <h2>What will you do?</h2>
+
+      <p class="sub-text">
+        Create a quest or join your partner's quest.
+      </p>
+
+      <button class="choice-btn create-btn" onclick="openCreate()">
+        <span class="choice-icon">✦</span>
+        <span>
+          <strong>Create</strong>
+          <small>Make a quest for your partner</small>
+        </span>
+        <b>→</b>
+      </button>
+
+      <button class="choice-btn join-btn" onclick="openJoin()">
+        <span class="choice-icon">♡</span>
+        <span>
+          <strong>Join</strong>
+          <small>Enter your partner's quest</small>
+        </span>
+        <b>→</b>
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 3C — CREATOR SETUP
+  ========================================================== -->
+  <section id="screen-create" class="screen creator-screen">
+
+    <div class="creator-container">
+
+      <div class="creator-top">
+        <span class="creator-brand">OUR LOVE QUEST</span>
+        <span class="creator-step">CREATE</span>
+      </div>
+
+      <div class="creator-card">
+
+        <p class="eyebrow">LET'S BUILD SOMETHING SPECIAL</p>
+
+        <h2>Create Your Quest</h2>
+
+        <p class="creator-description">
+          Give your adventure a name and tell us who it's for.
+        </p>
+
+        <label>Adventure title</label>
+        <input
+          id="questTitle"
+          class="dark-input"
+          type="text"
+          placeholder="e.g. Our Little Adventure"
+        >
+
+        <label>Partner's name</label>
+        <input
+          id="partnerName"
+          class="dark-input"
+          type="text"
+          placeholder="Your partner's name"
+        >
+
+        <button class="dark-main-btn" onclick="startBuilder()">
+          Continue →
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 4C — QUEST BUILDER
+  ========================================================== -->
+  <section id="screen-builder" class="screen creator-screen">
+
+    <div class="builder-container">
+
+      <div class="creator-top">
+        <span class="creator-brand">OUR LOVE QUEST</span>
+        <span class="creator-step">BUILDER</span>
+      </div>
+
+      <div class="builder-header">
+        <div>
+          <p class="eyebrow">YOUR ADVENTURE</p>
+          <h2 id="builderTitle">My Quest</h2>
+        </div>
+
+        <div class="progress-count">
+          <span id="itemCount">0</span>
+          items
+        </div>
+      </div>
+
+
+      <div id="builderItems" class="builder-items">
+        <div class="empty-builder">
+          <div>♡</div>
+          <p>Your quest is empty.</p>
+          <small>Add your first challenge below.</small>
+        </div>
+      </div>
+
+
+      <div class="add-grid">
+
+        <button onclick="addTask()">
+          <span>✓</span>
+          Task
+        </button>
+
+        <button onclick="addQuiz()">
+          <span>?</span>
+          Quiz
+        </button>
+
+        <button onclick="addChallenge()">
+          <span>⚡</span>
+          Challenge
+        </button>
+
+        <button onclick="addReward()">
+          <span>♡</span>
+          Reward
+        </button>
+
+      </div>
+
+      <button class="dark-main-btn" onclick="finishCreation()">
+        DONE
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 5C — CODE GENERATED
+  ========================================================== -->
+  <section id="screen-code" class="screen creator-screen">
+
+    <div class="creator-card code-card">
+
+      <div class="success-icon">✓</div>
+
+      <p class="eyebrow">YOUR QUEST IS READY</p>
+
+      <h2>Adventure Created</h2>
+
+      <p class="creator-description">
+        Give this code or link to your partner.
+      </p>
+
+      <div class="code-box">
+        <span>YOUR UNIQUE CODE</span>
+        <strong id="generatedCode">------</strong>
+      </div>
+
+      <button class="copy-btn" onclick="copyCode()">
+        Copy Code
+      </button>
+
+      <div class="link-box">
+        <span id="generatedLink"></span>
+      </div>
+
+      <button class="copy-btn" onclick="copyLink()">
+        Copy Link
+      </button>
+
+      <p class="one-person-note">
+        Only one partner can join this adventure.
+      </p>
+
+      <button class="dark-main-btn" onclick="backToChoice()">
+        DONE
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 3J — JOIN
+  ========================================================== -->
+  <section id="screen-join" class="screen join-screen">
+
+    <div class="glass-card join-card">
+
+      <div class="heart-icon">♥</div>
+
+      <h2>Join Your Love Quest</h2>
+
+      <p class="sub-text">
+        Enter the link or unique code your partner gave you.
+      </p>
+
+      <div class="join-section">
+
+        <label>🔗 Quest Link</label>
+
+        <input
+          id="joinLink"
+          class="light-input"
+          type="text"
+          placeholder="Paste your partner's link"
+        >
+
+        <button class="light-btn" onclick="joinByLink()">
+          Join with Link →
+        </button>
+
+      </div>
+
+      <div class="or-divider">
+        <span></span>
+        OR
+        <span></span>
+      </div>
+
+      <div class="join-section">
+
+        <label>🔢 Quest Code</label>
+
+        <input
+          id="joinCode"
+          class="light-input"
+          type="text"
+          placeholder="Enter your unique code"
+          maxlength="7"
+        >
+
+        <button class="light-btn" onclick="joinByCode()">
+          Join with Code →
+        </button>
+
+      </div>
+
+      <p id="joinMessage" class="message"></p>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 6J — QUEST
+  ========================================================== -->
+  <section id="screen-quest" class="screen quest-screen">
+
+    <div class="quest-container">
+
+      <header class="quest-header">
+        <span>OUR LOVE QUEST</span>
+
+        <div class="quest-progress">
+          <span id="questProgressText">1 / 1</span>
+        </div>
+      </header>
+
+      <div class="quest-card">
+
+        <p class="quest-type" id="questType">TASK</p>
+
+        <h2 id="questItemTitle">Your challenge</h2>
+
+        <p id="questItemDescription">
+          Complete the challenge your partner created for you.
+        </p>
+
+        <div id="questInteraction"></div>
+
+        <button
+          id="completeChallengeBtn"
+          class="quest-btn"
+          onclick="completeCurrentItem()"
+        >
+          Complete →
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 7J — REWARDS
+  ========================================================== -->
+  <section id="screen-rewards" class="screen quest-screen">
+
+    <div class="quest-container">
+
+      <div class="quest-card rewards-card">
+
+        <div class="success-icon">♥</div>
+
+        <p class="quest-type">QUEST COMPLETE</p>
+
+        <h2>Everything is unlocked.</h2>
+
+        <p>
+          Your partner prepared these for you.
+        </p>
+
+        <div id="rewardsList"></div>
+
+        <button class="quest-btn" onclick="finishQuest()">
+          DONE
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       SCREEN 8J — FINAL
+  ========================================================== -->
+  <section id="screen-complete" class="screen quest-screen">
+
+    <div class="quest-card final-card">
+
+      <div class="final-heart">♥</div>
+
+      <p class="quest-type">ADVENTURE COMPLETE</p>
+
+      <h2>You did it.</h2>
+
+      <p>
+        Your partner will know that you completed the entire quest.
+      </p>
+
+      <div class="completion-stat">
+        <span>Challenges completed</span>
+        <strong id="finalProgress">0 / 0</strong>
+      </div>
+
+      <div class="completion-stat">
+        <span>Rewards claimed</span>
+        <strong id="finalRewards">0 / 0</strong>
+      </div>
+
+      <button class="quest-btn" onclick="returnHome()">
+        Finish
+      </button>
+
+    </div>
+  </section>
+
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
