@@ -9,15 +9,12 @@
 
 <body>
 
-  <!-- =========================================================
-       SCREEN 1 — WELCOME
-  ========================================================== -->
+  <!-- ================= SCREEN 1 ================= -->
   <section id="screen-welcome" class="screen welcome-screen active">
 
     <button class="close-btn" onclick="closeCard()">×</button>
 
     <div class="glass-card welcome-card">
-
       <div class="heart-icon">♥</div>
 
       <h1>Welcome</h1>
@@ -30,40 +27,29 @@
 
       <div class="input-box">
         <span>👤</span>
-        <input
-          type="text"
-          id="userName"
-          placeholder="Your name"
-          autocomplete="name"
-        >
+        <input id="userName" type="text" placeholder="Your name">
       </div>
 
       <div class="input-box">
         <span>✉</span>
-        <input
-          type="email"
-          id="userEmail"
-          placeholder="Your email"
-          autocomplete="email"
-        >
+        <input id="userEmail" type="email" placeholder="Your email">
       </div>
 
       <button class="main-btn" onclick="loginUser()">
         Login <span>→</span>
       </button>
-
     </div>
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 2 — CREATE / JOIN
-  ========================================================== -->
+  <!-- ================= SCREEN 2 ================= -->
   <section id="screen-choice" class="screen choice-screen">
 
     <div class="glass-card choice-card">
 
-      <div class="small-label">WELCOME, <span id="displayName"></span></div>
+      <div class="small-label">
+        WELCOME, <span id="displayName"></span>
+      </div>
 
       <h2>What will you do?</h2>
 
@@ -71,21 +57,25 @@
         Create a quest or join your partner's quest.
       </p>
 
-      <button class="choice-btn create-btn" onclick="openCreate()">
+      <button class="choice-btn" onclick="openCreate()">
         <span class="choice-icon">✦</span>
+
         <span>
           <strong>Create</strong>
           <small>Make a quest for your partner</small>
         </span>
+
         <b>→</b>
       </button>
 
-      <button class="choice-btn join-btn" onclick="openJoin()">
+      <button class="choice-btn" onclick="openJoin()">
         <span class="choice-icon">♡</span>
+
         <span>
           <strong>Join</strong>
           <small>Enter your partner's quest</small>
         </span>
+
         <b>→</b>
       </button>
 
@@ -93,16 +83,14 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 3C — CREATOR SETUP
-  ========================================================== -->
+  <!-- ================= SCREEN 3C ================= -->
   <section id="screen-create" class="screen creator-screen">
 
     <div class="creator-container">
 
       <div class="creator-top">
-        <span class="creator-brand">OUR LOVE QUEST</span>
-        <span class="creator-step">CREATE</span>
+        <span>OUR LOVE QUEST</span>
+        <span>CREATE</span>
       </div>
 
       <div class="creator-card">
@@ -116,6 +104,7 @@
         </p>
 
         <label>Adventure title</label>
+
         <input
           id="questTitle"
           class="dark-input"
@@ -124,6 +113,7 @@
         >
 
         <label>Partner's name</label>
+
         <input
           id="partnerName"
           class="dark-input"
@@ -136,68 +126,71 @@
         </button>
 
       </div>
-
     </div>
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 4C — QUEST BUILDER
-  ========================================================== -->
+  <!-- ================= SCREEN 4C BUILDER ================= -->
   <section id="screen-builder" class="screen creator-screen">
 
     <div class="builder-container">
 
       <div class="creator-top">
-        <span class="creator-brand">OUR LOVE QUEST</span>
-        <span class="creator-step">BUILDER</span>
+        <span>OUR LOVE QUEST</span>
+        <span>BUILDER</span>
       </div>
 
       <div class="builder-header">
+
         <div>
           <p class="eyebrow">YOUR ADVENTURE</p>
           <h2 id="builderTitle">My Quest</h2>
         </div>
 
         <div class="progress-count">
-          <span id="itemCount">0</span>
-          items
+          <span id="itemCount">0</span> items
         </div>
+
       </div>
 
 
+      <!-- CREATED ITEMS -->
       <div id="builderItems" class="builder-items">
+
         <div class="empty-builder">
           <div>♡</div>
           <p>Your quest is empty.</p>
-          <small>Add your first challenge below.</small>
+          <small>Add your first item below.</small>
         </div>
+
       </div>
 
 
+      <!-- ADD CARDS -->
       <div class="add-grid">
 
-        <button onclick="addTask()">
+        <button onclick="openCreatorModal('task')">
           <span>✓</span>
           Task
         </button>
 
-        <button onclick="addQuiz()">
+        <button onclick="openCreatorModal('quiz')">
           <span>?</span>
           Quiz
         </button>
 
-        <button onclick="addChallenge()">
+        <button onclick="openCreatorModal('challenge')">
           <span>⚡</span>
           Challenge
         </button>
 
-        <button onclick="addReward()">
-          <span>♡</span>
+        <button onclick="openCreatorModal('reward')">
+          <span>♥</span>
           Reward
         </button>
 
       </div>
+
 
       <button class="dark-main-btn" onclick="finishCreation()">
         DONE
@@ -207,9 +200,190 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 5C — CODE GENERATED
-  ========================================================== -->
+  <!-- =====================================================
+       CREATOR MODAL
+  ====================================================== -->
+
+  <div id="creatorModal" class="modal">
+
+    <div class="modal-card">
+
+      <button class="modal-close" onclick="closeCreatorModal()">
+        ×
+      </button>
+
+      <div id="modalIcon" class="modal-icon">✓</div>
+
+      <p id="modalEyebrow" class="eyebrow">
+        ADD TO QUEST
+      </p>
+
+      <h2 id="modalTitle">
+        Add Task
+      </h2>
+
+
+      <!-- TASK -->
+      <div id="taskForm" class="modal-form">
+
+        <label>Task title</label>
+
+        <input
+          id="taskTitle"
+          class="modal-input"
+          type="text"
+          placeholder="e.g. Send me your cutest selfie"
+        >
+
+        <label>Instructions</label>
+
+        <textarea
+          id="taskDescription"
+          class="modal-input"
+          rows="4"
+          placeholder="Tell your partner what they have to do..."
+        ></textarea>
+
+      </div>
+
+
+      <!-- QUIZ -->
+      <div id="quizForm" class="modal-form">
+
+        <label>Question</label>
+
+        <textarea
+          id="quizQuestion"
+          class="modal-input"
+          rows="3"
+          placeholder="Write your question..."
+        ></textarea>
+
+
+        <label>Options</label>
+
+        <div id="quizOptions"></div>
+
+        <button
+          type="button"
+          class="add-option-btn"
+          onclick="addQuizOption()"
+        >
+          + Add option
+        </button>
+
+
+        <label>Correct answer</label>
+
+        <select
+          id="quizCorrect"
+          class="modal-input"
+        >
+          <option value="">Select correct answer</option>
+        </select>
+
+      </div>
+
+
+      <!-- CHALLENGE -->
+      <div id="challengeForm" class="modal-form">
+
+        <label>Challenge title</label>
+
+        <input
+          id="challengeTitle"
+          class="modal-input"
+          type="text"
+          placeholder="e.g. Make me laugh"
+        >
+
+        <label>Challenge instructions</label>
+
+        <textarea
+          id="challengeDescription"
+          class="modal-input"
+          rows="4"
+          placeholder="What should your partner do?"
+        ></textarea>
+
+      </div>
+
+
+      <!-- REWARD -->
+      <div id="rewardForm" class="modal-form">
+
+        <label>Reward type</label>
+
+        <div class="reward-types">
+
+          <button type="button" onclick="selectRewardType(this,'Coupon')">
+            Coupon
+          </button>
+
+          <button type="button" onclick="selectRewardType(this,'Surprise')">
+            Surprise
+          </button>
+
+          <button type="button" onclick="selectRewardType(this,'Note')">
+            Note
+          </button>
+
+          <button type="button" onclick="selectRewardType(this,'Letter')">
+            Letter
+          </button>
+
+          <button type="button" onclick="selectRewardType(this,'Caption')">
+            Caption
+          </button>
+
+          <button type="button" onclick="selectRewardType(this,'Expression of Love')">
+            Expression of Love
+          </button>
+
+        </div>
+
+        <input
+          type="hidden"
+          id="rewardType"
+        >
+
+        <label>Your reward</label>
+
+        <textarea
+          id="rewardContent"
+          class="modal-input"
+          rows="5"
+          placeholder="Write what your partner will receive..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="cancel-btn"
+          onclick="closeCreatorModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          id="modalSaveBtn"
+          class="save-btn"
+          onclick="saveCreatorItem()"
+        >
+          Add
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= CODE SCREEN ================= -->
+
   <section id="screen-code" class="screen creator-screen">
 
     <div class="creator-card code-card">
@@ -225,8 +399,13 @@
       </p>
 
       <div class="code-box">
+
         <span>YOUR UNIQUE CODE</span>
-        <strong id="generatedCode">------</strong>
+
+        <strong id="generatedCode">
+          ------
+        </strong>
+
       </div>
 
       <button class="copy-btn" onclick="copyCode()">
@@ -253,9 +432,8 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 3J — JOIN
-  ========================================================== -->
+  <!-- ================= SCREEN 3J ================= -->
+
   <section id="screen-join" class="screen join-screen">
 
     <div class="glass-card join-card">
@@ -267,6 +445,7 @@
       <p class="sub-text">
         Enter the link or unique code your partner gave you.
       </p>
+
 
       <div class="join-section">
 
@@ -285,11 +464,13 @@
 
       </div>
 
+
       <div class="or-divider">
         <span></span>
         OR
         <span></span>
       </div>
+
 
       <div class="join-section">
 
@@ -315,26 +496,34 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 6J — QUEST
-  ========================================================== -->
+  <!-- ================= QUEST ================= -->
+
   <section id="screen-quest" class="screen quest-screen">
 
     <div class="quest-container">
 
       <header class="quest-header">
+
         <span>OUR LOVE QUEST</span>
 
         <div class="quest-progress">
-          <span id="questProgressText">1 / 1</span>
+          <span id="questProgressText">
+            1 / 1
+          </span>
         </div>
+
       </header>
+
 
       <div class="quest-card">
 
-        <p class="quest-type" id="questType">TASK</p>
+        <p id="questType" class="quest-type">
+          TASK
+        </p>
 
-        <h2 id="questItemTitle">Your challenge</h2>
+        <h2 id="questItemTitle">
+          Your challenge
+        </h2>
 
         <p id="questItemDescription">
           Complete the challenge your partner created for you.
@@ -356,9 +545,8 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 7J — REWARDS
-  ========================================================== -->
+  <!-- ================= REWARDS ================= -->
+
   <section id="screen-rewards" class="screen quest-screen">
 
     <div class="quest-container">
@@ -367,7 +555,9 @@
 
         <div class="success-icon">♥</div>
 
-        <p class="quest-type">QUEST COMPLETE</p>
+        <p class="quest-type">
+          QUEST COMPLETE
+        </p>
 
         <h2>Everything is unlocked.</h2>
 
@@ -387,16 +577,19 @@
   </section>
 
 
-  <!-- =========================================================
-       SCREEN 8J — FINAL
-  ========================================================== -->
+  <!-- ================= FINAL ================= -->
+
   <section id="screen-complete" class="screen quest-screen">
 
     <div class="quest-card final-card">
 
-      <div class="final-heart">♥</div>
+      <div class="final-heart">
+        ♥
+      </div>
 
-      <p class="quest-type">ADVENTURE COMPLETE</p>
+      <p class="quest-type">
+        ADVENTURE COMPLETE
+      </p>
 
       <h2>You did it.</h2>
 
@@ -425,5 +618,6 @@
   <div id="toast" class="toast"></div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
